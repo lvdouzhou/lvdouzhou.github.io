@@ -3,23 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>酸甜瓜</title>
+  <title>uml 类图学习笔记 | 酸甜瓜</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
+  <meta name="keywords" content="UML" />
   
   
   
-  <meta name="description" content="一路高歌猛进是电视剧，一地鸡毛才是生活">
+  
+  <meta name="description" content="UML">
+<meta name="keywords" content="UML">
 <meta property="og:type" content="article">
-<meta property="og:title" content="酸甜瓜">
+<meta property="og:title" content="UML 类图学习笔记">
 <meta property="og:url" content="https://github.com/lvdouzhou/lvdouzhou.github.io.git/2017/09/05/UML 类图学习笔记/index.html">
 <meta property="og:site_name" content="酸甜瓜">
-<meta property="og:description" content="一路高歌猛进是电视剧，一地鸡毛才是生活">
+<meta property="og:description" content="UML">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-05T09:17:54.779Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/UML1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/UML10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML9.jpg">
+<meta property="og:updated_time" content="2017-09-05T09:27:25.092Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="酸甜瓜">
-<meta name="twitter:description" content="一路高歌猛进是电视剧，一地鸡毛才是生活">
+<meta name="twitter:title" content="UML 类图学习笔记">
+<meta name="twitter:description" content="UML">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/UML1.jpg">
   
     <link rel="alternate" href="/atom.xml" title="酸甜瓜" type="application/atom+xml">
   
@@ -157,13 +170,25 @@
   <div id="articleInner" class="article-inner">
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      UML 类图学习笔记
+    </h1>
+  
+
+      </header>
+    
     <div class="article-meta">
       
 	<a href="/2017/09/05/UML 类图学习笔记/" class="article-date">
-	  <time datetime="2017-09-05T09:17:54.779Z" itemprop="datePublished">2017-09-05</time>
+	  <time datetime="2017-09-05T09:18:29.000Z" itemprop="datePublished">2017-09-05</time>
 	</a>
 
       
+    <a class="article-category-link" href="/categories/“UML”/">“UML”</a>
+
       
 	<a class="article-views">
 	<span id="busuanzi_container_page_pv">
@@ -174,7 +199,50 @@
     </div>
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <p>平时看代码时，特别是复杂的 app 类和类之间的关系错综复杂，想要理清楚他们之间的关系，往往是非常烧脑的。不过通过<br>使用 UML 图就可以达到事半功倍的效果。</p>
+<h2 id="UML-图"><a href="#UML-图" class="headerlink" title="UML 图"></a>UML 图</h2><p>在 UML 图中，使用一个矩形加两根横线表示一个类。如下图所示</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/UML1.jpg" alt="图1: UML 图"></p>
+<ul>
+<li>第一行： 类名  </li>
+<li>第二行:  属性</li>
+<li>第三行： 方法</li>
+<li>+ : public</li>
+<li>- : private</li>
+<li># : protected</li>
+</ul>
+<h2 id="类的属性表示"><a href="#类的属性表示" class="headerlink" title="类的属性表示"></a>类的属性表示</h2><p><strong>格式：可见性  名称 ：类型 [ = 缺省值]</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">java : public int startIndex = -1</div><div class="line"></div><div class="line">UML  : + startIndex :int  =-1</div></pre></td></tr></table></figure>
+<h2 id="类的方法表示"><a href="#类的方法表示" class="headerlink" title="类的方法表示"></a>类的方法表示</h2><p><strong>格式：可见性  名称(参数列表) [ ： 返回类型]</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">栗子 无参数：</div><div class="line">    java : public void action ()</div><div class="line">    UML  : + action()  :void</div><div class="line">    </div><div class="line">栗子 有参数：</div><div class="line">    java : public void action1 (String params)</div><div class="line">    UML  : + action1(String params)  :void</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="类之间的关系"><a href="#类之间的关系" class="headerlink" title="类之间的关系"></a>类之间的关系</h2><h3 id="关联关系"><a href="#关联关系" class="headerlink" title="关联关系"></a>关联关系</h3><ol>
+<li>单向关联</li>
+</ol>
+<p>单向关联用一个带箭头的直线表示，表示每个教室都有学生 </p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/UML10.jpg" alt="图2 ：单向关联"></p>
+<ol>
+<li>双向关联 </li>
+</ol>
+<p>双向关联就是双方各自持有对方类型的成员变量。在UML类图中，双向关联用一个不带箭头的直线表示。</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML3.jpg" alt="图3 ：双向关联"></p>
+<ol>
+<li>自关联</li>
+</ol>
+<p>自关联在UML类图中用一个带有箭头且指向自身的直线表示。上图的意思就是Node类包含类型为Node的成员变量，也就是“自己包含自己”。</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML4.jpg" alt="图4 ：自关联"></p>
+<h3 id="聚合关系"><a href="#聚合关系" class="headerlink" title="聚合关系"></a>聚合关系</h3><p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML5.jpg" alt="图5：聚合关系"></p>
+<p>上图中的Car类与Engine类就是聚合关系（Car类中包含一个Engine类型的成员变量）。由上图我们可以看到，UML中聚合关系用带空心菱形和箭头的直线表示。聚合关系强调是“整体”包含“部分”，但是“部分”可以脱离“整体”而单独存在。比如上图中汽车包含了发动机，而发动机脱离了汽车也能单独存在。</p>
+<h3 id="组合关系"><a href="#组合关系" class="headerlink" title="组合关系"></a>组合关系</h3><p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML6.jpg" alt="图6：组合关系"></p>
+<p>组合关系与聚合关系见得最大不同在于：这里的“部分”脱离了“整体”便不复存在。显然眼睛不能脱离人类而存在。</p>
+<h3 id="依赖关系"><a href="#依赖关系" class="headerlink" title="依赖关系"></a>依赖关系</h3><p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML7.jpg" alt="图7：依赖关系"></p>
+<p>在UML类图中，依赖关系用一条带有箭头的虚线表示。</p>
+<h3 id="继承关系"><a href="#继承关系" class="headerlink" title="继承关系"></a>继承关系</h3><p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML8.jpg" alt="图8：继承关系"></p>
+<p>继承关系对应的是extend关键字，在UML类图中用带空心三角形的直线表示。</p>
+<h3 id="接口关系"><a href="#接口关系" class="headerlink" title="接口关系"></a>接口关系</h3><p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/d24b7f7a90240a98d888abdc2c1c91a8c3e30d9a/UML9.jpg" alt="图9：接口关系"></p>
+<p>这种关系对应implement关键字，在UML类图中用带空心三角形的虚线表示。</p>
+<p>到这里我们就能基本看懂和绘制 UML 图啦。</p>
+<p><a href="http://moguozhou.site/" target="_blank" rel="external">欢迎移步到小弟的 Blog，有更多意想不到的干货哦!</a></p>
+
       
     </div>
     <footer class="article-footer">
@@ -219,25 +287,18 @@ var a = new Donate({
 
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UML/">UML</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/09/05/android 屏幕各尺寸获取/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">上一篇</strong>
-      <div class="article-nav-title">
-        
-          android 屏幕各尺寸获取
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/17/正则表达式/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/09/05/android 屏幕各尺寸获取/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title">正则表达式</div>
+      <div class="article-nav-title">android 屏幕各尺寸获取</div>
     </a>
   
 </nav>
@@ -251,7 +312,7 @@ var a = new Donate({
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
     
-        <ol class="nav">无</ol>
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#UML-图"><span class="nav-number">1.</span> <span class="nav-text">UML 图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的属性表示"><span class="nav-number">2.</span> <span class="nav-text">类的属性表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类的方法表示"><span class="nav-number">3.</span> <span class="nav-text">类的方法表示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类之间的关系"><span class="nav-number">4.</span> <span class="nav-text">类之间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关联关系"><span class="nav-number">4.1.</span> <span class="nav-text">关联关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#聚合关系"><span class="nav-number">4.2.</span> <span class="nav-text">聚合关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合关系"><span class="nav-number">4.3.</span> <span class="nav-text">组合关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#依赖关系"><span class="nav-number">4.4.</span> <span class="nav-text">依赖关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#继承关系"><span class="nav-number">4.5.</span> <span class="nav-text">继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接口关系"><span class="nav-number">4.6.</span> <span class="nav-text">接口关系</span></a></li></ol></li></ol>
     
     </div>
   </aside>

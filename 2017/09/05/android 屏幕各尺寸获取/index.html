@@ -19,7 +19,7 @@
 <meta property="og:site_name" content="酸甜瓜">
 <meta property="og:description" content="android 屏幕各尺寸获取">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2017-09-05T09:21:45.000Z">
+<meta property="og:updated_time" content="2017-09-05T09:27:17.884Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android 屏幕各尺寸获取">
 <meta name="twitter:description" content="android 屏幕各尺寸获取">
@@ -191,6 +191,7 @@
       
         <p>在开发中我们会遇到各种需要获得屏幕参数的场景，当中也有不少坑，所以现在就记录一下这些参数的获取方式。以免再入坑。</p>
 <h2 id="物理屏幕宽高"><a href="#物理屏幕宽高" class="headerlink" title="物理屏幕宽高"></a>物理屏幕宽高</h2><p>一、底部没有虚拟按键<br>   这里获取到的宽高，就是你眼睛能看到的，屏幕亮着的地方的宽高。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * 获取屏幕的宽</div><div class="line"> *</div><div class="line"> * @param context</div><div class="line"> * @return</div><div class="line"> */</div><div class="line">public static int getScreenWidth(Context context) &#123;</div><div class="line">	WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);</div><div class="line">	DisplayMetrics dm = new DisplayMetrics();</div><div class="line">	wm.getDefaultDisplay().getMetrics(dm);</div><div class="line">	return dm.widthPixels;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/**</div><div class="line"> * 获取屏幕的高度</div><div class="line"> *</div><div class="line"> * @param context</div><div class="line"> * @return</div><div class="line"> */</div><div class="line">public static int getScreenHeight(Context context) &#123;</div><div class="line">	WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);</div><div class="line">	DisplayMetrics dm = new DisplayMetrics();</div><div class="line">	wm.getDefaultDisplay().getMetrics(dm);</div><div class="line">	return dm.heightPixels;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
 <p>二、底部有虚拟按键<br>华为手机底部都会有一个黑色的虚拟按键(NavigationBar)，通过上面这个方式得到的屏幕高度是屏幕<strong>真是高度-虚拟按键的高度</strong>。所以有虚拟按键的情况获取屏幕的高度就是另一种方法了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">	public static int getRealHeight(Context context) &#123;</div><div class="line">		WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);</div><div class="line">		Display display = wm.getDefaultDisplay();</div><div class="line">		int screenHeight = 0;</div><div class="line"></div><div class="line">		if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR1) &#123;</div><div class="line">			DisplayMetrics dm = new DisplayMetrics();</div><div class="line">			display.getRealMetrics(dm);</div><div class="line">			screenHeight = dm.heightPixels;</div><div class="line"></div><div class="line">			//或者也可以使用getRealSize方法</div><div class="line">//            Point size = new Point();</div><div class="line">//            display.getRealSize(size);</div><div class="line">//            screenHeight = size.y;</div><div class="line">		&#125; else if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.ICE_CREAM_SANDWICH) &#123;</div><div class="line">			try &#123;</div><div class="line">				screenHeight = (Integer) Display.class.getMethod(&quot;getRawHeight&quot;).invoke(display);</div><div class="line">			&#125; catch (Exception e) &#123;</div><div class="line">				DisplayMetrics dm = new DisplayMetrics();</div><div class="line">				display.getMetrics(dm);</div><div class="line">				screenHeight = dm.heightPixels;</div><div class="line">			&#125;</div><div class="line">		&#125;</div><div class="line">		return screenHeight;</div><div class="line">	&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="虚拟按键高度"><a href="#虚拟按键高度" class="headerlink" title="虚拟按键高度"></a>虚拟按键高度</h2><p>虚拟按键(NavigationBar)高度可以通过读取定义在Android系统尺寸资源中的 navigation_bar_height 获得。<br>所以不管虚拟按键是显示还是隐藏，得到的结果都是一样的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">public static int getNavigationBarHeight(Context context) &#123;</div><div class="line">	int navigationBarHeight = -1;</div><div class="line">	Resources resources = context.getResources();</div><div class="line">	int resourceId = resources.getIdentifier(&quot;navigation_bar_height&quot;,&quot;dimen&quot;, &quot;android&quot;);</div><div class="line">	if (resourceId &gt; 0) &#123;</div><div class="line">		navigationBarHeight = resources.getDimensionPixelSize(resourceId);</div><div class="line">	&#125;</div><div class="line">	return navigationBarHeight;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h2 id="状态栏高度"><a href="#状态栏高度" class="headerlink" title="状态栏高度"></a>状态栏高度</h2><p>状态栏就是屏幕顶部显示时间，电池，wifi 等信息的栏目。</p>
@@ -263,10 +264,19 @@ var a = new Donate({
     
 <nav id="article-nav">
   
+    <a href="/2017/09/05/UML 类图学习笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">上一篇</strong>
+      <div class="article-nav-title">
+        
+          UML 类图学习笔记
+        
+      </div>
+    </a>
   
-    <a href="/2017/09/05/UML 类图学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2017/08/17/正则表达式/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">下一篇</strong>
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">正则表达式</div>
     </a>
   
 </nav>
