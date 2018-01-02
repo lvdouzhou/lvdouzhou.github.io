@@ -250,6 +250,60 @@
         
           <section id="main" style="float:none;">
   
+    <article id="post-Canvas 裁剪和几何变换"  class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" itemprop="name">
+      <a class="article-title" href="/2018/01/02/Canvas 裁剪和几何变换/">Canvas 裁剪和几何变换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/02/Canvas 裁剪和几何变换/" class="article-date">
+	  <time datetime="2018-01-02T08:38:37.000Z" itemprop="datePublished">2018-01-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/“android”-“android-进阶”/">“android” ,“android 进阶”</a>
+
+      
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>文章概要：此文章主要是主要是学习 android canvas 的各种操作（裁剪 与 几何变换）
+</code></pre><p>首先我们先自定义一个 View，在里面绘制一个和布局大小一样的 Rect 和一串文字方便我们对 Canvas 进行操作的时候清晰明了，</p>
+<p>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class CanvasTransition extends View &#123;</div><div class="line">	private Paint mPaint = new Paint();//矩形画笔</div><div class="line">	private Paint textPaint = new Paint();//文字画笔</div><div class="line">	private Paint linePaint = new Paint();//线画笔</div><div class="line"></div><div class="line"></div><div class="line">	public CanvasTransition(Context context, @Nullable AttributeSet attrs) &#123;</div><div class="line">		super(context, attrs);</div><div class="line">		mPaint.setAntiAlias(true);</div><div class="line">		mPaint.setColor(Color.parseColor(&quot;#ff4081&quot;));</div><div class="line">		textPaint.setTextSize(100);</div><div class="line">		textPaint.setColor(Color.parseColor(&quot;#9ECAF5&quot;));</div><div class="line"></div><div class="line">		linePaint.setAntiAlias(true);</div><div class="line">		linePaint.setColor(Color.BLACK);</div><div class="line">		linePaint.setStrokeWidth(5);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void onDraw(Canvas canvas) &#123;</div><div class="line">		super.onDraw(canvas);</div><div class="line">		int canvasW = getWidth();</div><div class="line">		int canvasH = getHeight();</div><div class="line"></div><div class="line">	</div><div class="line">		canvas.save();//保存画布当前状态</div><div class="line">		canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">		canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">		canvas.restore();//恢复画布到上一次保存的状态</div><div class="line"></div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private int getStringWidth(String str) &#123;</div><div class="line">		return (int) textPaint.measureText(str);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private int getStringHeight(String str) &#123;</div><div class="line">		Paint.FontMetrics fr = textPaint.getFontMetrics();</div><div class="line">		return (int) Math.ceil(fr.descent - fr.top) + 2;  //ceil() 函数向上舍入为最接近的整数。</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如图1：</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/6.png" alt="图 1 "></p>
+        <!-- 文章概要：此文章主要是主要是学习 android canvas 的各种操作（裁剪 与 几何变换）
+首先我们先自定义一个 View，在里面绘制一个和布局大小一样的 Rect 和一串文字方便我们对 Canvas 进行操作的时候清晰明了，
+代码如下1234567891011121314151617181920212223242526272829303132333435363738394041424......  -->
+        <p class="article-more-link">
+          <a href="/2018/01/02/Canvas 裁剪和几何变换/#more">阅读全文</a>
+        </p>
+      
+    </div>
+    <footer class="article-footer">
+      
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进阶/">进阶</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+<!-- Table of Contents -->
+
+  
     <article id="post-UML 类图学习笔记"  class="article article-type-post" itemscope itemprop="blogPost" >
   <div id="articleInner" class="article-inner">
     
@@ -567,7 +621,7 @@ love.js1!function(e,t,a)&#123......  -->
   <div class="container">
       	<div class="row">
 	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
-	      <p id="copyRightEn">Copyright &copy; 2013 - 2017 酸甜瓜 All Rights Reserved.</p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 酸甜瓜 All Rights Reserved.</p>
 	      
 	      
     		<p class="busuanzi_uv">
@@ -727,7 +781,7 @@ love.js1!function(e,t,a)&#123......  -->
             酸甜瓜
           </div>
           <div class="panel-body">
-            Copyright © 2017 suantiangua All Rights Reserved.
+            Copyright © 2018 suantiangua All Rights Reserved.
           </div>
         </div>
       </div>

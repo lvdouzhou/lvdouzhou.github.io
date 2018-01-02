@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>canvas 裁剪和几何变换 | 酸甜瓜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <meta name="keywords" content="android进阶UI" />
+  
+  
+  
+  
+  <meta name="description" content="Canvas 裁剪和几何变换">
+<meta name="keywords" content="android,进阶,UI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Canvas 裁剪和几何变换">
+<meta property="og:url" content="https://github.com/lvdouzhou/lvdouzhou.github.io.git/2018/01/02/Canvas 裁剪和几何变换/index.html">
+<meta property="og:site_name" content="酸甜瓜">
+<meta property="og:description" content="Canvas 裁剪和几何变换">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/6.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/8.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/5.png">
+<meta property="og:updated_time" content="2018-01-02T08:45:47.703Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Canvas 裁剪和几何变换">
+<meta name="twitter:description" content="Canvas 裁剪和几何变换">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/6.png">
+  
+    <link rel="alternate" href="/atom.xml" title="酸甜瓜" type="application/atom+xml">
+  
+
+  
+
+  <link rel="icon" href="/css/images/favicon.jpeg">
+  <link rel="apple-touch-icon" href="/css/images/favicon.jpeg">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Montserrat:700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic" rel="stylesheet" type="text/css">
+  <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+  <style type="text/css">
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/9749f0/00000000000000000001008f/27/l?subset_id=2&fvd=n5) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/90cf9f/000000000000000000010091/27/l?subset_id=2&fvd=n7) format("woff2");font-weight:500;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/8a5494/000000000000000000013365/27/l?subset_id=2&fvd=n4) format("woff2");font-weight:lighter;font-style:normal;}
+    @font-face{font-family:futura-pt;src:url(https://use.typekit.net/af/d337d8/000000000000000000010095/27/l?subset_id=2&fvd=i4) format("woff2");font-weight:400;font-style:italic;}</style>
+  <link rel="stylesheet" href="/css/style.css">
+
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <script src="/js/bootstrap.js"></script>
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.css" >
+
+  
+    <link rel="stylesheet" href="/css/dialog.css">
+  
+
+  
+    <link rel="stylesheet" href="/css/header-post.css" >
+  
+
+  
+  
+  
+    <link rel="stylesheet" href="/css/vdonate.css" >
+  
+
+</head>
+
+
+
+  <body data-spy="scroll" data-target="#toc" data-offset="50">
+
+
+  
+  <div id="container">
+    <div id="wrap">
+      
+        <header>
+
+    <div id="allheader" class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-inner">
+          
+          <div class="container"> 
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            
+              <a class="brand" style="
+                 margin-top: 0px;"  
+                href="#" data-toggle="modal" data-target="#myModal" >
+                  <img width="124px" height="124px" alt="Hike News" src="/css/images/favicon.jpeg">
+              </a>
+            
+            
+            <div class="navbar-collapse collapse">
+              <ul class="hnav navbar-nav">
+                
+                  <li> <a class="main-nav-link" href="/">首页</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/archives">归档</a> </li>
+                
+                  <li> <a class="main-nav-link" href="/about">关于</a> </li>
+                
+                  <li><div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="请输入关键词..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(无标题)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div></li>
+            </div>
+          </div>
+                
+      </div>
+    </div>
+
+</header>
+
+
+
+      
+            
+      <div id="content" class="outer">
+        
+          <section id="main" style="float:none;"><article id="post-Canvas 裁剪和几何变换" style="width: 75%; float:left;" class="article article-type-post" itemscope itemprop="blogPost" >
+  <div id="articleInner" class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="thumb" class="article-title" itemprop="name">
+      Canvas 裁剪和几何变换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-meta">
+      
+	<a href="/2018/01/02/Canvas 裁剪和几何变换/" class="article-date">
+	  <time datetime="2018-01-02T08:38:37.000Z" itemprop="datePublished">2018-01-02</time>
+	</a>
+
+      
+    <a class="article-category-link" href="/categories/“android”-“android-进阶”/">“android” ,“android 进阶”</a>
+
+      
+	<a class="article-views">
+	<span id="busuanzi_container_page_pv">
+		阅读量<span id="busuanzi_value_page_pv"></span>
+	</span>
+	</a>
+
+    </div>
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>文章概要：此文章主要是主要是学习 android canvas 的各种操作（裁剪 与 几何变换）
+</code></pre><p>首先我们先自定义一个 View，在里面绘制一个和布局大小一样的 Rect 和一串文字方便我们对 Canvas 进行操作的时候清晰明了，</p>
+<p>代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">public class CanvasTransition extends View &#123;</div><div class="line">	private Paint mPaint = new Paint();//矩形画笔</div><div class="line">	private Paint textPaint = new Paint();//文字画笔</div><div class="line">	private Paint linePaint = new Paint();//线画笔</div><div class="line"></div><div class="line"></div><div class="line">	public CanvasTransition(Context context, @Nullable AttributeSet attrs) &#123;</div><div class="line">		super(context, attrs);</div><div class="line">		mPaint.setAntiAlias(true);</div><div class="line">		mPaint.setColor(Color.parseColor(&quot;#ff4081&quot;));</div><div class="line">		textPaint.setTextSize(100);</div><div class="line">		textPaint.setColor(Color.parseColor(&quot;#9ECAF5&quot;));</div><div class="line"></div><div class="line">		linePaint.setAntiAlias(true);</div><div class="line">		linePaint.setColor(Color.BLACK);</div><div class="line">		linePaint.setStrokeWidth(5);</div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Override</div><div class="line">	protected void onDraw(Canvas canvas) &#123;</div><div class="line">		super.onDraw(canvas);</div><div class="line">		int canvasW = getWidth();</div><div class="line">		int canvasH = getHeight();</div><div class="line"></div><div class="line">	</div><div class="line">		canvas.save();//保存画布当前状态</div><div class="line">		canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">		canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">		canvas.restore();//恢复画布到上一次保存的状态</div><div class="line"></div><div class="line"></div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private int getStringWidth(String str) &#123;</div><div class="line">		return (int) textPaint.measureText(str);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	private int getStringHeight(String str) &#123;</div><div class="line">		Paint.FontMetrics fr = textPaint.getFontMetrics();</div><div class="line">		return (int) Math.ceil(fr.descent - fr.top) + 2;  //ceil() 函数向上舍入为最接近的整数。</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如图1：</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/6.png" alt="图 1 "></p>
+<a id="more"></a>
+<h2 id="裁剪"><a href="#裁剪" class="headerlink" title="裁剪"></a>裁剪</h2><p>裁剪一共有两种方式 ：clipRect 、clipPath</p>
+<h3 id="矩形裁剪"><a href="#矩形裁剪" class="headerlink" title="矩形裁剪"></a>矩形裁剪</h3><p><strong>canvas.clipRect(int left, int top, int right, int bottom)</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">canvas.save();</div><div class="line">canvas.clipRect(0,0,canvasW/4+2*canvasW/4,canvasH/4+2*canvasH/4);</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p>对中间绘制的矩形进行裁剪，画布被裁剪后，绘制的 rect 和 文字只能看到裁剪后的效果。</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/9.png" alt="图 2"></p>
+<h3 id="根据路径裁剪"><a href="#根据路径裁剪" class="headerlink" title="根据路径裁剪"></a>根据路径裁剪</h3><p><strong>canvas.clipPath(Path path)</strong></p>
+<p>path:裁剪的路径</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Path path1 = new Path();</div><div class="line">Point point1 = new Point(100, 100);</div><div class="line">path1.addCircle(point1.x+100,point1.y+100,150,Path.Direction.CW);//一个圆形的裁剪路径</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">canvas.save();</div><div class="line">canvas.clipPath(path1);</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p>绘制一个圆形路径，canva 就可以根据这个路径进行图片的裁剪，当然还可以使用其他的路径。具体效果请自己尝试</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/8.png" alt="图 3"></p>
+<h2 id="几何变换"><a href="#几何变换" class="headerlink" title="几何变换"></a>几何变换</h2><p>几何变换方式一共有 4 种。分别是：</p>
+<ul>
+<li>移动</li>
+<li>旋转</li>
+<li>缩放</li>
+<li>扭曲</li>
+</ul>
+<p>我们可以通过 canvas 、matrix、camera 来实现上面几种几何变换。</p>
+<p>几何变换依赖于坐标系，一个手机平放在桌面上以当前布局的左上角为坐标（0，0），向右为 x 坐标，向下为 y 坐标。</p>
+<p>如图：</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/1.png" alt="图片 4"></p>
+<h3 id="canvas-位移"><a href="#canvas-位移" class="headerlink" title="canvas 位移"></a>canvas 位移</h3><p>先在布局顶部和左边的边界上画两条线，当做 x、y 轴。不过因为已经画了一个铺满整个布局的 Rect 所以整个边界线<br>会暂时看不到。画线的目的就是让我们能够看到对 Canvas 进行移动后，整个布局变成什么样子了。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">// 这些代码要在绘制 rect 之前</div><div class="line">linePaint.setColor(Color.BLACK);</div><div class="line">canvas.drawLine(0, 0, getWidth(), 0, linePaint);</div><div class="line">linePaint.setColor(Color.BLUE);</div><div class="line">canvas.drawLine(0, 0, 0, getHeight(), linePaint);</div></pre></td></tr></table></figure></p>
+<p><strong>移动画布：canvas.translate(float dx,float dy)</strong></p>
+<p>dx：画布横向移动的距离</p>
+<p>dy：画布纵向移动的距离</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">canvas.save();</div><div class="line">canvas.translate(canvasW / 4, 0);//移动画布</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p>效果：</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/2.png" alt="图片 5"></p>
+<p>  上图中我把画布横向移动了 canvasW / 4 的长度，在画布移动后我们绘制了一个矩形和一个“矩形”两个字，大家<br>可能会发现绘制的矩形我们是用布局的宽高来当做矩形的宽高，绘制出来的效果应该是整个布局都是粉色才是。<br>出现这样的结果就是因为我们使用了 canvas.translate 这个方法，是的画布整体向右移动了。<br>  我们可以想象现在你坐在教室的前方的墙壁（CanvasTransition），在教室的前方左边有一个投影仪用的幕布（相当于 canvas），我们把幕布（canvas）一半移动到教室外面，一半留在里面，这时投影的画面在教室外面的我们是看不到的，就相当 图2的效果。我们在画布旋转后在绘制 rect 和 文字，rect 和 文字的原点不再是画布之前的 （0，0）而是  位移过后的（canvasW / 4, 0）。</p>
+<h3 id="canvas-旋转"><a href="#canvas-旋转" class="headerlink" title="canvas 旋转"></a>canvas 旋转</h3><p><strong>canvas.rotate(float degrees)</strong></p>
+<p>degrees:旋转的角度</p>
+<p><strong>canvas.rotate(float degrees, float px, float py)</strong></p>
+<p>degrees：旋转角度</p>
+<p>px：旋转 x 轴心点</p>
+<p>py:旋转 y 轴心点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">canvas.save();</div><div class="line">canvas.rotate(45);</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p>旋转也是对整个画布进行旋转了 45°，旋转的中心点默认是 View 的左上角(0,0)，所以在画布旋转后在绘制的内容都会旋转 45° 后再进行绘制。</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/3.png" alt="图片 6"></p>
+<h3 id="canvas-缩放"><a href="#canvas-缩放" class="headerlink" title="canvas 缩放"></a>canvas 缩放</h3><p><strong>  canvas.scale(float sx, float sy) </strong></p>
+<p>sx: 横向缩放倍数</p>
+<p>sy：纵向缩放倍数</p>
+<p><strong>canvas.scale(float sx, float sy, float px, float py)</strong></p>
+<p>sx: 横向缩放倍数</p>
+<p>sy：纵向缩放倍数</p>
+<p>px:横向缩放的中心点</p>
+<p>py:纵向缩放的中心点</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">canvas.save();</div><div class="line">canvas.scale(0.5f,0.5f);</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p>canvas 的缩放也是默认以 View 的左边顶点为缩放的圆点。</p>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/4.png" alt="图 7"></p>
+<h3 id="canvas-扭曲"><a href="#canvas-扭曲" class="headerlink" title="canvas 扭曲"></a>canvas 扭曲</h3><p><strong>canvas.skew(float sx, float sy)</strong> </p>
+<p>sx: x 轴方向的扭曲程度</p>
+<p>sy：y 轴方向的扭曲程度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">canvas.save();</div><div class="line">canvas.skew(0,0.05f);</div><div class="line">canvas.drawRect(0, 0, canvasW, canvasH, mPaint);//和画布一样大小的矩形</div><div class="line">canvas.drawText(&quot;矩形&quot;, canvasW / 2 - getStringWidth(&quot;矩形&quot;) / 2, canvasH / 2 + getStringHeight(&quot;矩形&quot;) / 4, textPaint);</div><div class="line">canvas.restore();</div></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/lvdouzhou/blopPic/master/canvas/5.png" alt="图 8 "></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      
+        <div id="donation_div"></div>
+
+<script src="/js/vdonate.js"></script>
+<script>
+var a = new Donate({
+  title: '如果觉得我的文章对您有用，请随意打赏。您的支持将鼓励我继续创作!', // 可选参数，打赏标题
+  btnText: '打赏支持', // 可选参数，打赏按钮文字
+  el: document.getElementById('donation_div'),
+  wechatImage: 'https://raw.githubusercontent.com/lvdouzhou/blogSourceFIle/master/source/weixin.png',
+  alipayImage: 'https://raw.githubusercontent.com/lvdouzhou/blogSourceFIle/master/source/zhifubao.jpg'
+});
+</script>
+      
+      
+        
+	<div id="comment">
+		<!-- 来必力City版安装代码 -->
+		<div id="lv-container" data-id="city" data-uid="MTAyMC8zMDIxNi82Nzcx">
+		<script type="text/javascript">
+		   (function(d, s) {
+		       var j, e = d.getElementsByTagName(s)[0];
+
+		       if (typeof LivereTower === 'function') { return; }
+
+		       j = d.createElement(s);
+		       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+		       j.async = true;
+
+		       e.parentNode.insertBefore(j, e);
+		   })(document, 'script');
+		</script>
+		<noscript>为正常使用来必力评论功能请激活JavaScript</noscript>
+		</div>
+		<!-- City版安装代码已完成 -->
+	</div>
+
+
+
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UI/">UI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/进阶/">进阶</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/09/05/UML 类图学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">下一篇</strong>
+      <div class="article-nav-title">UML 类图学习笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+<!-- Table of Contents -->
+
+  <aside id="toc-sidebar">
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+        <ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#裁剪"><span class="nav-number">1.</span> <span class="nav-text">裁剪</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#矩形裁剪"><span class="nav-number">1.1.</span> <span class="nav-text">矩形裁剪</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#根据路径裁剪"><span class="nav-number">1.2.</span> <span class="nav-text">根据路径裁剪</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#几何变换"><span class="nav-number">2.</span> <span class="nav-text">几何变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-位移"><span class="nav-number">2.1.</span> <span class="nav-text">canvas 位移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-旋转"><span class="nav-number">2.2.</span> <span class="nav-text">canvas 旋转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-缩放"><span class="nav-number">2.3.</span> <span class="nav-text">canvas 缩放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canvas-扭曲"><span class="nav-number">2.4.</span> <span class="nav-text">canvas 扭曲</span></a></li></ol></li></ol>
+    
+    </div>
+  </aside>
+</section>
+        
+      </div>
+      
+      <footer id="footer">
+  
+
+  <div class="container">
+      	<div class="row">
+	      <p> Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/iTimeTraveler/hexo-theme-hiker" target="_blank">Hexo-theme-hiker</a> </p>
+	      <p id="copyRightEn">Copyright &copy; 2013 - 2018 酸甜瓜 All Rights Reserved.</p>
+	      
+	      
+    		<p class="busuanzi_uv">
+				访客数 : <span id="busuanzi_value_site_uv"></span> |  
+				访问量 : <span id="busuanzi_value_site_pv"></span>
+		    </p>
+  		   
+		</div>
+
+		
+  </div>
+</footer>
+
+
+<!-- min height -->
+
+<script>
+    var wrapdiv = document.getElementById("wrap");
+    var contentdiv = document.getElementById("content");
+    var allheader = document.getElementById("allheader");
+
+    wrapdiv.style.minHeight = document.body.offsetHeight + "px";
+    if (allheader != null) {
+      contentdiv.style.minHeight = document.body.offsetHeight - allheader.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    } else {
+      contentdiv.style.minHeight = document.body.offsetHeight - document.getElementById("footer").offsetHeight + "px";
+    }
+</script>
+    </div>
+    <!-- <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav> -->
+    
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/scripts.js"></script>
+
+
+
+
+  <script src="/js/dialog.js"></script>
+
+
+
+
+
+
+
+
+	<div style="display: none;">
+    <script src="https://s95.cnzz.com/z_stat.php?id=1263567458&web_id=1263567458" language="JavaScript"></script>
+  </div>
+
+
+
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+	</script>
+
+
+
+	<script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?{{ theme.baidu_analytics }}";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  </div>
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title" id="myModalLabel">设置</h2>
+      </div>
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+
+
+      <div class="modal-body">
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" onclick="javascript:setFontSize();" aria-expanded="true" aria-controls="collapseOne">
+              正文字号大小
+            </a>
+          </div>
+          <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            您已调整页面字体大小
+          </div>
+        </div>
+      
+
+
+          <div style="margin:6px;">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" onclick="javascript:setBackground();" aria-expanded="true" aria-controls="collapseTwo">
+              夜间护眼模式
+            </a>
+        </div>
+          <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <div class="panel-body">
+            夜间模式已经开启，再次单击按钮即可关闭 
+          </div>
+        </div>
+
+        <div>
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关 于&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </div>
+         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+          <div class="panel-body">
+            酸甜瓜
+          </div>
+          <div class="panel-body">
+            Copyright © 2018 suantiangua All Rights Reserved.
+          </div>
+        </div>
+      </div>
+
+
+      <hr style="margin-top:0px; margin-bottom:0px; width:80%; border-top: 1px solid #000;">
+      <hr style="margin-top:2px; margin-bottom:0px; width:80%; border-top: 3px solid #000;">
+      <div class="modal-footer">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  <a id="rocket" href="#top" class=""></a>
+  <script type="text/javascript" src="/js/totop.js?v=1.0.0" async=""></script>
+  
+    <a id="menu-switch"><i class="fa fa-bars fa-lg"></i></a>
+  
+</body>
+</html>
